@@ -1,19 +1,12 @@
-function findNumber(start, end, divisor) {
-  for (let i = start; i < end; i += 1) {
-    if (i % divisor === 0) {
-      return i;
-    }
-  }
+//
+function slugify(title) {
+  const slug = title.toLowerCase().split(" ");
+  return slug.join("-");
 }
 
-console.log(findNumber(2, 6, 5));
-console.log(findNumber(8, 17, 3));
-console.log(findNumber(6, 9, 4));
-console.log(findNumber(16, 35, 7));
-
-function createReversedArray() {
-  const args = Array.from(arguments);
-  return args.toReversed();
-}
-console.log(createReversedArray(1, 2, 3, 4, 5));
-console.log(createReversedArray("a", "b", "c", "d"));
+console.log(slugify("Arrays for beginners")); // "arrays-for-beginners"
+console.log(slugify("English for developer")); // "english-for-developer"
+console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
+console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
+// !================================
+// !================================
