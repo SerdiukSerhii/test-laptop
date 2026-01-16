@@ -47,9 +47,9 @@ console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus", "Venus"], 0));
 
 function filterArray(numbers, value) {
   const newArr = [];
-  for (let i = 0; i > numbers.length; i++) {
-    if (value.includes(numbers[i])) {
-      newArr.push(i);
+  for (let i = 0; i < numbers.length; i++) {
+    if (value < numbers[i]) {
+      newArr.push(numbers[i]);
     }
   }
   return newArr;
