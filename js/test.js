@@ -1,62 +1,107 @@
-// !================================  task-1  ==========================
-function slugify(title) {
-  const slug = title.toLowerCase().split(" ");
-  return slug.join("-");
-}
+//
 
-console.log(slugify("Arrays for beginners")); // "arrays-for-beginners"
-console.log(slugify("English for developer")); // "english-for-developer"
-console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
-console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
-// !================================
-
-// !================================   task-2  ==========================
-
-// function makeArray(firstArray, secondArray, maxLength) {
-//   const arrs = firstArray.concat(secondArray);
-//   return arrs.slice(0, maxLength);
+// function addOverNum(value, ...args) {
+//   let totalSum = 0;
+//   for (const arg of args) {
+//     if (arg > value) totalSum += arg;
+//   }
+//   return totalSum;
 // }
+// console.log(addOverNum(10, 12, 4, 11, 48, 10, 8));
+// console.log(addOverNum(50, 15, 27));
+// console.log(addOverNum(15, 32, 6, 13, 19, 8));
 
-//  тернарный оператор
-// function makeArray(firstArray, secondArray, maxLength) {
-//   const arrs = firstArray.concat(secondArray);
-//   return arrs.length > maxLength ? arrs.slice(0, maxLength) : arrs;
+// function getExtremeScores(scores) {
+//   return {
+//     best: Math.max(...scores),
+//     worst: Math.min(...scores),
+//   };
 // }
+// console.log(getExtremeScores([89, 64, 42, 17, 93, 51, 26]));
 
-// самый сокращеный вариант
-// function makeArray(firstArray, secondArray, maxLength) {
-//   return firstArray.concat(secondArray).slice(0, maxLength);
-// }
+// !===================== task-1 =============================
 
-function makeArray(firstArray, secondArray, maxLength) {
-  const arrs = firstArray.concat(secondArray);
-  if (arrs.length > maxLength) {
-    return arrs.slice(0, maxLength);
-  } else {
-    return arrs;
+function isEnoughCapacity(products, containerSize) {
+  let totalNumProducts = 0;
+  const productsValues = Object.values(products);
+  for (const value of productsValues) {
+    totalNumProducts += value;
   }
+  return totalNumProducts <= containerSize;
 }
-console.log(makeArray(["Mango", "Poly"], ["Ajax", "Chelsea"], 3)); // ["Mango", "Poly", "Ajax"]
-console.log(makeArray(["Mango", "Poly", "Houston"], ["Ajax", "Chelsea"], 4)); // ["Mango", "Poly", "Houston", "Ajax"]
-console.log(makeArray(["Mango"], ["Ajax", "Chelsea", "Poly", "Houston"], 3)); // ["Mango", "Ajax", "Chelsea"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 2)); // ["Earth", "Jupiter"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus"], 4)); // ["Earth", "Jupiter", "Neptune", "Uranus"]
-console.log(makeArray(["Earth", "Jupiter"], ["Neptune", "Uranus", "Venus"], 0)); // []
 
-// !================================ task-3 ==========================
+console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
 
-function filterArray(numbers, value) {
-  const newArr = [];
-  for (let i = 0; i < numbers.length; i++) {
-    if (value < numbers[i]) {
-      newArr.push(numbers[i]);
-    }
+console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
+
+console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
+
+console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false;
+
+// !===========================================================================
+
+// !======================== task-2 ===============================================
+
+function calcAverageCalories(days) {
+  let sumCalories = 0;
+  for (const day of days) {
+    sumCalories += day.calories;
   }
-  return newArr;
+  if (days.length === 0) {
+    return 0;
+  }
+  return sumCalories / days.length;
 }
 
-console.log(filterArray([1, 2, 3, 4, 5], 3)); // [4, 5]
-console.log(filterArray([1, 2, 3, 4, 5], 4)); // [5]
-console.log(filterArray([1, 2, 3, 4, 5], 5)); // []
-console.log(filterArray([12, 24, 8, 41, 76], 38)); // [41, 76]
-console.log(filterArray([12, 24, 8, 41, 76], 20)); // [24, 41, 76]
+console.log(
+  calcAverageCalories([
+    { day: "monday", calories: 3010 },
+    { day: "tuesday", calories: 3200 },
+    { day: "wednesday", calories: 3120 },
+    { day: "thursday", calories: 2900 },
+    { day: "friday", calories: 3450 },
+    { day: "saturday", calories: 3280 },
+    { day: "sunday", calories: 3300 },
+  ]),
+); // 3180
+
+console.log(
+  calcAverageCalories([
+    { day: "monday", calories: 2040 },
+    { day: "tuesday", calories: 2270 },
+    { day: "wednesday", calories: 2420 },
+    { day: "thursday", calories: 1900 },
+    { day: "friday", calories: 2370 },
+    { day: "saturday", calories: 2280 },
+    { day: "sunday", calories: 2610 },
+  ]),
+); // 2270
+
+console.log(calcAverageCalories([])); // 0
+// !===========================================================================
+
+// !======================== task-3 ===============================================
+
+const profile = {
+  username: "Jacob",
+  playTime: 300,
+
+  changeUsername(newName) {
+    this.username = newName;
+  },
+  updatePlayTime(hours) {
+    this.playTime += hours;
+  },
+  getInfo() {
+    return `${this.username} has ${this.playTime} active hours!`;
+  },
+};
+
+console.log(profile.getInfo()); // "Jacob has 300 active hours!"
+
+profile.changeUsername("Marco");
+console.log(profile.getInfo()); // "Marco has 300 active hours!"
+
+profile.updatePlayTime(20);
+console.log(profile.getInfo()); // "Marco has 320 active hours!"
+// !===========================================================================
